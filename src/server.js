@@ -18,6 +18,10 @@ const io = socketIO(server);
 let sockets = []
 
 io.on("connection", socket => {
-  sockets.push(socket.id)
+  //sockets.push(socket.id) // 접속한 socket id 리스트를 배열에 담아줌
+  //socket.emit("hello"); // 방금 연결된 socket이 hello 메시지 보내기
+  // setTimeout(() => socket.emit("hello"), 5000); // 해당 유저에게만 실행
+  //setTimeout(() => socket.broadcast.emit("hello"), 5000); // 방금 접속한 클라이언트를 제외하고 접속해 있는 다른 유저들에게도 실행
+  socket.on("helloGuys", () => console.log("the client said hello"));
 });
 //setInterval(() => console.log(sockets), 1000);
