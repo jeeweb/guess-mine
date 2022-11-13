@@ -18,6 +18,19 @@ const io = socketIO(server);
 let sockets = []
 
 io.on("connection", socket => {
+	socket.on("newMessage", ({ message }) => {
+		socket.broadcast.emit("messageNotif", { 
+      message,
+      nickname: socket.nickname || "Anon"
+     });
+	});
+  socket.on("setNickname", ({nickname}) => {
+    socket.nickname = nickname;
+  })
+})
+
+/* 
+io.on("connection", socket => {
   //sockets.push(socket.id) // 접속한 socket id 리스트를 배열에 담아줌
   //socket.emit("hello"); // 방금 연결된 socket이 hello 메시지 보내기
   // setTimeout(() => socket.emit("hello"), 5000); // 해당 유저에게만 실행
@@ -25,3 +38,4 @@ io.on("connection", socket => {
   socket.on("helloGuys", () => console.log("the client said hello"));
 });
 //setInterval(() => console.log(sockets), 1000);
+*/
