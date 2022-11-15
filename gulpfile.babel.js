@@ -4,7 +4,8 @@ import nodeSass from "node-sass";
 import autoprefixer from "gulp-autoprefixer";
 import minifyCSS from "gulp-csso";
 import del from "del";
-import bro from "gulp-browserify";
+import bro from "gulp-bro";
+import babel from "babelify";
 
 const sass = gulpSass(nodeSass);
 
@@ -36,7 +37,16 @@ const styles = () => gulp
 
 const js = () => gulp
   .src(paths.js.src)
-  .pipe(bro())
+  .pipe(
+    bro({
+      transform: [
+        babel.configure({
+          presets: ["@babel/preset-env"]
+        }),
+        ["uglifyify", { global: true }]
+      ]
+    })
+  )
   .pipe(gulp.dest(paths.js.dest));
 
 const watchFiles = () => {
@@ -46,4 +56,6 @@ const watchFiles = () => {
 
 const dev = gulp.series(clean, styles, js, watchFiles);
 
+export const build = gulp.series(clean, styles, js);
+// 이것만 써주고 build 할 수 있음, watchFile은 안넣어줘도 됨
 export default dev;
