@@ -17,9 +17,11 @@
     "@babel/core": "^7.20.2",
     "@babel/node": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
+    "del": "^7.0.0",
     "express": "^4.18.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
+    "gulp-browserify": "^0.5.1",
     "gulp-csso": "^4.0.1",
     "gulp-sass": "^5.1.0",
     "morgan": "^1.10.0",
@@ -33,6 +35,7 @@
     "dev:assets": "gulp"
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^4.2.1"
+    "eslint-plugin-prettier": "^4.2.1",
+    "sass": "^1.56.1"
   }
 }
