@@ -3,7 +3,7 @@ import gulpSass from "gulp-sass";
 import nodeSass from "node-sass";
 import autoprefixer from "gulp-autoprefixer";
 import minifyCSS from "gulp-csso";
-import del from "del";
+import {deleteAsync} from "del";
 import bro from "gulp-bro";
 import babel from "babelify";
 
@@ -22,7 +22,7 @@ const paths = {
   }
 }
 
-const clean = () => del(["src/static"]);
+const clean = () => deleteAsync(["src/static"]);
 
 const styles = () => gulp
   .src(paths.styles.src)

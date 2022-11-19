@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "guess-mine",
   "version": "1.0.0",
   "description": "Realtime Drawing Game built with SocketIO, Gulp and Node.js",
@@ -27,6 +28,7 @@
     "gulp-csso": "^4.0.1",
     "gulp-sass": "^5.1.0",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
     "node-sass": "^8.0.0",
     "nodemon": "^2.0.20",
     "pug": "^3.0.2",
@@ -38,6 +40,7 @@
     "dev:assets": "gulp"
   },
   "devDependencies": {
+    "@babel/register": "^7.18.9",
     "eslint-plugin-prettier": "^4.2.1",
     "sass": "^1.56.1"
   }
