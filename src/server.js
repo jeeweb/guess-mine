@@ -2,8 +2,8 @@ import {join} from "path";
 import express from "express";
 import { Server } from "socket.io";
 import logger from "morgan";
-import socketController from "./socketController";
-import events from "./events";
+import socketController from "./socketController.js";
+import events from "./events.js";
 
 import path from 'path';
 const __dirname = path.resolve();
