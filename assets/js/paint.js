@@ -1,3 +1,5 @@
+import { getSocket } from "./sockets";
+
 const saveBtn = document.getElementById("save");
 const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
@@ -20,14 +22,25 @@ ctx.lineCap = "round"
 let isPainting = false;
 let isFilling = false;
 
+const beginPath = (x, y) => {
+  ctx.moveTo(x, y);
+}
+
+const strokePath = (x,y) => {
+  ctx.lineTo(x, y);
+  ctx.stroke();
+}
+
 function onMove(event) {
-  console.log(event.offsetX, event.offsetY)
+  const x = event.offsetX;
+  const y = event.offsetY;
   if(isPainting){
-    ctx.lineTo(event.offsetX, event.offsetY);
-    ctx.stroke();
+    strokePath(x, y)
+    getSocket().emit(window.events.strokePath, {x, y})
     return;
   }
-  ctx.moveTo(event.offsetX, event.offsetY);
+  beginPath(x, y);
+  getSocket().emit(window.events.beginPath, {x, y})
 }
 
 function startPainting() {
@@ -147,3 +160,6 @@ destroyBtn.addEventListener("click", onDestroyClick);
 eraserBtn.addEventListener("click", onEraserClick);
 fileInput.addEventListener("change", onFileChange);
 saveBtn.addEventListener("click", onSaveClick);
+
+export const handleBeganPath = ({x, y}) => beginPath(x, y)
+export const handleStrokedPath = ({x, y}) => strokePath(x, y);
