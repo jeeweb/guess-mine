@@ -23,12 +23,18 @@ let isPainting = false;
 let isFilling = false;
 
 const beginPath = (x, y) => {
+  ctx.beginPath();
   ctx.moveTo(x, y);
 }
 
-const strokePath = (x,y) => {
+const strokePath = (x, y, color = null) => {
+  let currentColor = ctx.strokeStyle; 
+  if (color !== null) {
+    ctx.strokeStyle = color;
+  }
   ctx.lineTo(x, y);
   ctx.stroke();
+  ctx.strokeStyle = currentColor;
 }
 
 function onMove(event) {
@@ -36,7 +42,7 @@ function onMove(event) {
   const y = event.offsetY;
   if(isPainting){
     strokePath(x, y)
-    getSocket().emit(window.events.strokePath, {x, y})
+    getSocket().emit(window.events.strokePath, {x, y, color: ctx.strokeStyle})
     return;
   }
   beginPath(x, y);
@@ -49,7 +55,6 @@ function startPainting() {
 
 function cancelPainting() {
   isPainting = false;
-  ctx.beginPath();
 }
 
 function onLineWidthChange(event) {
@@ -162,4 +167,4 @@ fileInput.addEventListener("change", onFileChange);
 saveBtn.addEventListener("click", onSaveClick);
 
 export const handleBeganPath = ({x, y}) => beginPath(x, y)
-export const handleStrokedPath = ({x, y}) => strokePath(x, y);
+export const handleStrokedPath = ({x, y, color}) => strokePath(x, y, color);
