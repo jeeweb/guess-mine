@@ -89,9 +89,19 @@ function onModeClick(){
   }
 }
 
+const fill = (color = null ) => {
+  let currentColor = ctx.fillStyle;
+  if(color !== null){
+    ctx.fillStyle = color;
+  }
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.fillStyle = currentColor
+}
+
 function onCavasClick() {
   if(isFilling){
-    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    fill();
+    getSocket().emit(window.events.fill, { color: ctx.fillStyle })
   }
 }
 
@@ -168,3 +178,4 @@ saveBtn.addEventListener("click", onSaveClick);
 
 export const handleBeganPath = ({x, y}) => beginPath(x, y)
 export const handleStrokedPath = ({x, y, color}) => strokePath(x, y, color);
+export const handleFilled = ({color}) => fill(color);
