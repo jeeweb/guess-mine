@@ -10,6 +10,7 @@ const colorOptions = Array.from(document.getElementsByClassName("color-option"))
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
+const controls = document.getElementById("jsControls")
 const ctx = canvas.getContext("2d");
 
 const CANVAS_WIDTH = 700;
@@ -157,13 +158,6 @@ function onSaveClick() {
   a.click();
 }
 
-canvas.addEventListener("dblclick", onDoubleClick);
-canvas.addEventListener("mousemove", onMove);
-// canvas.onmousemove = onMove 로 표현할 수 있음
-canvas.addEventListener("mousedown", startPainting);
-canvas.addEventListener("mouseup", cancelPainting);
-canvas.addEventListener("mouseleave", cancelPainting);
-canvas.addEventListener("click", onCavasClick);
 
 lineWidth.addEventListener('change', onLineWidthChange);
 color.addEventListener("change", onColorChange);
@@ -179,3 +173,29 @@ saveBtn.addEventListener("click", onSaveClick);
 export const handleBeganPath = ({x, y}) => beginPath(x, y)
 export const handleStrokedPath = ({x, y, color}) => strokePath(x, y, color);
 export const handleFilled = ({color}) => fill(color);
+
+export const disableCanvas = () => {
+  canvas.removeEventListener("dblclick", onDoubleClick);
+  canvas.removeEventListener("mousemove", onMove);
+  canvas.removeEventListener("mousedown", startPainting);
+  canvas.removeEventListener("mouseup", cancelPainting);
+  canvas.removeEventListener("mouseleave", cancelPainting);
+  canvas.removeEventListener("click", onCavasClick);
+}
+
+export const enableCanvas = () => {
+  canvas.addEventListener("dblclick", onDoubleClick);
+  canvas.addEventListener("mousemove", onMove);
+  // canvas.onmousemove = onMove 로 표현할 수 있음
+  canvas.addEventListener("mousedown", startPainting);
+  canvas.addEventListener("mouseup", cancelPainting);
+  canvas.addEventListener("mouseleave", cancelPainting);
+  canvas.addEventListener("click", onCavasClick); 
+}
+
+export const hideControls = () => controls.style.opacity = 0;
+export const showControls = () => controls.style.opacity = 1;
+
+if (canvas) {
+  enableCanvas();
+}
