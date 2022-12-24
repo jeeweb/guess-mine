@@ -10,7 +10,7 @@ const colorOptions = Array.from(document.getElementsByClassName("color-option"))
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
-const controls = document.getElementById("jsControls")
+const controls = document.getElementById("jsControls");
 const ctx = canvas.getContext("2d");
 
 const CANVAS_WIDTH = 700;
@@ -195,7 +195,9 @@ export const enableCanvas = () => {
 
 export const hideControls = () => controls.style.opacity = 0;
 export const showControls = () => controls.style.opacity = 1;
+export const resetCanvas = () => fill("#fff");
 
 if (canvas) {
   enableCanvas();
+  hideControls();
 }
